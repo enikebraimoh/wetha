@@ -1,10 +1,14 @@
 package com.enike.wetha.framework.network
 
-import com.enike.core.domain.Weather
+import com.enike.wetha.framework.network.models.City
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface Apis {
 
-    @GET("auth/signup")
-    suspend fun getCityWeather(city: String): Weather
+    @GET("weather")
+    suspend fun getCityWeather(@Query("q") city: String): City
+
+    @GET("weather")
+    suspend fun getAllCityWeather(city: String): List<City>
 }
