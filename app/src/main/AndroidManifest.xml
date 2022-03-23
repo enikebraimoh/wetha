@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.enike.wetha">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".WethaApplicaton"
         android:allowBackup="true"

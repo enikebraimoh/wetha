@@ -8,6 +8,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.enike.wetha.ui.presentation.HomeViewModel
 import com.enike.wetha.ui.theme.WethaTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,6 +30,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String) {
+    val viewModel: HomeViewModel = hiltViewModel()
     Text(text = "Hello $name!")
 }
 
