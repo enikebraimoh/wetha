@@ -1,7 +1,7 @@
-package com.enike.wetha.di
+package com.enike.wetha.framework.datasource.di
 
 import com.enike.core.data.RemoteDataSource
-import com.enike.wetha.framework.RemoteDataSourceImpl
+import com.enike.wetha.framework.datasource.RemoteDataSourceImpl
 import com.enike.wetha.framework.network.Apis
 import dagger.Module
 import dagger.Provides
@@ -11,12 +11,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModule {
+object DataSourceModule {
 
-    @Singleton
     @Provides
-    fun providesNetworkDataSource (apis : Apis) : RemoteDataSource{
-        return RemoteDataSourceImpl(apis)
-    }
+    @Singleton
+    fun providesRemoteDataSource (api : Apis) : RemoteDataSource = RemoteDataSourceImpl(api)
 
 }
