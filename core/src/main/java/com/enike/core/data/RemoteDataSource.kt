@@ -1,7 +1,8 @@
 package com.enike.core.data
 
-import com.enike.core.domain.Weather
+import com.enike.core.domain.City
 
 interface RemoteDataSource {
-    suspend fun getCityWeather(city : String) : Weather
+    suspend fun getCityWeather(city: String): City
+    suspend fun getAllCityWeather(city: String): List<City>
 }
