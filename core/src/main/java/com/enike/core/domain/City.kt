@@ -4,5 +4,6 @@ data class City(
     val temperature: Temperature,
     val weather: List<Weather>,
     val cityName: String,
-    val id: Int
+    val id: Int,
+    val favourite : Boolean
 )
