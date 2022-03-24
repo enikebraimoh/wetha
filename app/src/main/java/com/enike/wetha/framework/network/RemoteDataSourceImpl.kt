@@ -1,4 +1,4 @@
-package com.enike.wetha.framework.datasource
+package com.enike.wetha.framework.network
 
 import com.enike.core.data.RemoteDataSource
 import com.enike.core.domain.City
@@ -12,7 +12,7 @@ constructor(private val api: Apis) : RemoteDataSource {
         return NetworkMapper().mapFromEntity(api.getCityWeather(city))
     }
 
-    override suspend fun getAllCityWeather(city: String): List<City> {
-        return NetworkMapper().mapFromEntityList(api.getAllCityWeather(city))
+    override suspend fun getAllCityWeather(cities: String): List<City> {
+        return NetworkMapper().mapFromEntityList(api.getAllCityWeather(cities))
     }
 }
