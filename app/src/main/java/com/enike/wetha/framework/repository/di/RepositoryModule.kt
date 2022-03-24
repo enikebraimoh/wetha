@@ -1,7 +1,9 @@
 package com.enike.wetha.framework.repository.di
 
+import com.enike.core.data.LocalDataSource
 import com.enike.core.data.RemoteDataSource
 import com.enike.core.data.repository.HomeRepository
+import com.enike.wetha.framework.database.CityDao
 import com.enike.wetha.framework.repository.HomeRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -13,7 +15,7 @@ import dagger.hilt.components.SingletonComponent
 object RepositoryModule {
 
     @Provides
-    fun providesHomeRepository(dataSource: RemoteDataSource): HomeRepository =
-        HomeRepositoryImpl(dataSource)
+    fun providesHomeRepository(remoteSource: RemoteDataSource, localSource : LocalDataSource): HomeRepository =
+        HomeRepositoryImpl(remoteSource, localSource)
 
 }
