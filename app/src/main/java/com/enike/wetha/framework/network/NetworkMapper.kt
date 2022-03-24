@@ -23,7 +23,8 @@ class NetworkMapper() : Mappers<com.enike.wetha.framework.network.models.City, C
                 temp_max = entity.main.temp_max,
                 pressure = entity.main.pressure,
                 humidity = entity.main.humidity
-            )
+            ),
+            favourite = false
         )
     }
 
