@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.enike.wetha.ui.presentation.HomeViewModel
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             WethaTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+                    Greeting("Mother Fucker!")
                 }
             }
         }
@@ -31,7 +31,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String) {
     val viewModel: HomeViewModel = hiltViewModel()
-    Text(text = "Hello $name!")
+    val cities by remember { viewModel.state }
+    Text(text = cities.toString())
 }
 
 @Preview(showBackground = true)
