@@ -1,7 +1,9 @@
 package com.enike.wetha.framework.network.di
 
+import com.enike.core.data.RemoteDataSource
 import com.enike.wetha.framework.network.Apis
-import com.enike.wetha.utils.Constants.BASE_URL
+import com.enike.wetha.framework.network.RemoteDataSourceImpl
+import com.enike.wetha.utils.Constants
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -16,7 +18,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RetrofitModule {
+object DataSourceModule {
 
     @Provides
     @Singleton
@@ -37,7 +39,7 @@ object RetrofitModule {
     @Singleton
     fun providesRetrofitBuilder(gson: Gson, client: OkHttpClient): Retrofit.Builder {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(Constants.BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
     }
@@ -48,5 +50,8 @@ object RetrofitModule {
         return retrofit.build().create(Apis::class.java)
     }
 
+    @Provides
+    @Singleton
+    fun providesRemoteDataSource(api: Apis): RemoteDataSource = RemoteDataSourceImpl(api)
 
 }
