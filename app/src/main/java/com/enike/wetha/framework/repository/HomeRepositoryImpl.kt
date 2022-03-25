@@ -5,8 +5,6 @@ import com.enike.core.data.LocalDataSource
 import com.enike.core.data.RemoteDataSource
 import com.enike.core.data.repository.HomeRepository
 import com.enike.core.domain.City
-import com.enike.wetha.framework.database.CityDao
-import com.enike.wetha.framework.database.DatabaseMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -20,7 +18,7 @@ class HomeRepositoryImpl(
             val response = remoteDataSource.getCityWeather(city)
             emit(response)
         } catch (e: Exception) {
-            Log.d("ERROR_TESTING_REPO",e.localizedMessage)
+            Log.d("ERROR_TESTING_REPO", e.localizedMessage)
         }
     }
 
@@ -33,11 +31,22 @@ class HomeRepositoryImpl(
                 localDataSource.addCityWeather(res)
                 result.add(res)
             }
+
+            Log.d("NETWORK_TESTING_REPO", result.toString())
             val localData = localDataSource.getAllCitesWeather()
             emit(localData)
 
         } catch (e: Exception) {
-            Log.d("ERROR_TESTING_REPO",e.localizedMessage)
+            Log.d("ERROR_TESTING_REPO", e.localizedMessage)
+        }
+    }
+
+    override fun getDatabaseCityWeather(): Flow<List<City>> = flow {
+        try {
+            val localData = localDataSource.getAllCitesWeather()
+            emit(localData)
+        } catch (e: Exception) {
+            Log.d("ERROR_TESTING_REPO", e.localizedMessage.toString())
         }
     }
 

@@ -8,5 +8,4 @@ interface LocalDataSource {
     suspend fun addCityWeather(city: City) : Long
     suspend fun getAllCitesWeather(): List<City>
 
-
 }
