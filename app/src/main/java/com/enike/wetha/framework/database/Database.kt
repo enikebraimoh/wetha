@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.enike.wetha.framework.database.models.City
 
 
-@Database(entities = [City::class], version = 2)
+@Database(entities = [City::class], version = 3)
 @TypeConverters(Converters::class)
 abstract class Database : RoomDatabase() {
 

@@ -4,10 +4,9 @@ import com.enike.core.data.repository.HomeRepository
 import com.enike.core.domain.City
 import kotlinx.coroutines.flow.Flow
 
-class GetCityWeatherUseCase
+class GetCitiesFromDatabaseUseCase
 constructor(private val homeRepository: HomeRepository) {
-    operator fun invoke(city: String): Flow<City> {
-        return homeRepository.getCityWeather(city)
+    operator fun invoke(): Flow<List<City>> {
+        return homeRepository.getDatabaseCityWeather()
     }
 }
-
