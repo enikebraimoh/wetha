@@ -6,11 +6,11 @@
         <entry key="../../../../layout/compose-model-1647900205892.xml" value="0.19722222222222222" />
         <entry key="../../../../layout/compose-model-1647907956676.xml" value="0.7689530685920578" />
         <entry key="../../../../layout/compose-model-1647931983632.xml" value="0.8194945848375451" />
+        <entry key="../../../../layout/compose-model-1648088595314.xml" value="0.22423333349993643" />
+        <entry key="../../../../layout/compose-model-1648121885197.xml" value="0.165" />
+        <entry key="../../../../layout/compose-model-1648122835668.xml" value="0.25" />
       </map>
     </option>
-  </component>
-  <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/enike/wetha/framework/network/di/RetrofitModule.kt" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

@@ -2,6 +2,7 @@ package com.enike.wetha.framework
 
 import com.enike.core.data.repository.HomeRepository
 import com.enike.core.interactors.GetAllCitiesUseCase
+import com.enike.core.interactors.GetCitiesFromDatabaseUseCase
 import com.enike.core.interactors.GetCityWeatherUseCase
 import dagger.Module
 import dagger.Provides
@@ -19,5 +20,9 @@ object UseCaseModule {
     @Provides
     fun providesGetCityUseCase(repo: HomeRepository): GetCityWeatherUseCase =
         GetCityWeatherUseCase(repo)
+
+    @Provides
+    fun providesGetCityFromDBUseCase(repo: HomeRepository) =
+        GetCitiesFromDatabaseUseCase(repo)
 
 }
