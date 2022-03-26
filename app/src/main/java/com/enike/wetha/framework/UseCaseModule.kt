@@ -1,8 +1,7 @@
 package com.enike.wetha.framework
 
 import com.enike.core.data.repository.HomeRepository
-import com.enike.core.interactors.GetAllCitiesUseCase
-import com.enike.core.interactors.GetCitiesFromDatabaseUseCase
+import com.enike.core.interactors.*
 import com.enike.core.interactors.GetCityWeatherUseCase
 import dagger.Module
 import dagger.Provides
@@ -24,5 +23,14 @@ object UseCaseModule {
     @Provides
     fun providesGetCityFromDBUseCase(repo: HomeRepository) =
         GetCitiesFromDatabaseUseCase(repo)
+
+    @Provides
+    fun providesMakeFavouriteUseCase(repo: HomeRepository) =
+        MakeFavouriteUseCase(repo)
+
+    @Provides
+    fun providesSearchCityUseCase(repo: HomeRepository) =
+        SearchForCityUseCase(repo)
+
 
 }
