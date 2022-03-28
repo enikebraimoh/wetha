@@ -1,4 +1,4 @@
-package com.enike.wetha.ui.theme
+package com.enike.wetha.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
@@ -25,18 +25,23 @@ val Typography = Typography(
         fontFamily = CircularStd,
         fontWeight = FontWeight.Light,
         fontSize = 20.sp
+    ),
+    body2 = TextStyle(
+        fontFamily = CircularStd,
+        fontWeight = FontWeight.Light,
+        fontSize = 10.sp
     )
 
-    /* Other default text styles to override
-    button = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
-    ),
-    caption = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
-    )
-    */
+/* Other default text styles to override
+button = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.W500,
+    fontSize = 14.sp
+),
+caption = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Normal,
+    fontSize = 12.sp
+)
+*/
 )

@@ -1,4 +1,4 @@
-package com.enike.wetha.ui.theme
+package com.enike.wetha.presentation.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
