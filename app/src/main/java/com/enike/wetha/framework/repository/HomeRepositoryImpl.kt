@@ -35,6 +35,8 @@ class HomeRepositoryImpl(
             emit(localData)
 
         } catch (e: Exception) {
+            val localData = localDataSource.getAllCitesWeather()
+            emit(localData)
             Log.d("ERROR_TESTING_REPO", e.localizedMessage)
         }
     }

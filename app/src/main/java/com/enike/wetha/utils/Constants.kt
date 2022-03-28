@@ -3,5 +3,5 @@ package com.enike.wetha.utils
 object Constants {
     const val BASE_URL: String = "https://community-open-weather-map.p.rapidapi.com/"
     const val HOST: String = "community-open-weather-map.p.rapidapi.com"
-    const val API_KEY: String = "372856f04bmsh61253b30bcac3ecp1399adjsn7d3d9fb6bc26"
+    const val API_KEY: String = "29923e4c92msha2c68cb6b04d191p1eccccjsn177e361c5be8"
 }
