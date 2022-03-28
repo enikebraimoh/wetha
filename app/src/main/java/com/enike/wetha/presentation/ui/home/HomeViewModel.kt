@@ -30,7 +30,29 @@ constructor
     private val _state: MutableState<List<City>> = mutableStateOf(listOf())
     val state: State<List<City>> = _state
 
-    val listOfCities = listOf("london", "lagos", "lagos", "abuja", "nairobi", "kano", "dutse")
+    val listOfCities =
+        listOf(
+            "Yobe",
+            "Kwara",
+            "london",
+            "lagos",
+            "Adamawa",
+            "abuja",
+            "nairobi",
+            "kano",
+            "Edo",
+            "dutse",
+            "California",
+            "Kaduna",
+            "Delta",
+            "Niger",
+            "Taraba",
+            "Katsina",
+            "Oyo",
+            "Jigawa",
+            "Osun",
+            "Enugu"
+        )
 
     init {
         getAllCitiesWeathers(listOfCities)
