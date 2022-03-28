@@ -19,12 +19,12 @@ val Typography = Typography(
     h4 = TextStyle(
         fontFamily = CircularStd,
         fontWeight = FontWeight.Bold,
-        fontSize = 30.sp
+        fontSize = 20.sp
     ),
     body1 = TextStyle(
         fontFamily = CircularStd,
         fontWeight = FontWeight.Light,
-        fontSize = 20.sp
+        fontSize = 10.sp
     ),
     body2 = TextStyle(
         fontFamily = CircularStd,

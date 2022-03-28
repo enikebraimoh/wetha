@@ -89,7 +89,7 @@ fun GlassCard(
             Spacer(modifier = Modifier.width(20.dp))
             Column {
                 Text(
-                    text = "${temperature}°",
+                    text = "max temp : ${temperature}°",
                     style = MaterialTheme.typography.h4
                 )
                 Spacer(modifier = Modifier.height(10.dp))
