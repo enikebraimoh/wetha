@@ -37,13 +37,19 @@ fun DetailsScreen(arg: City?) {
         Color(0xFFFFFFFF)
     }
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
         Image(
             modifier = Modifier.size(200.dp),
             imageVector = icon,
             contentDescription = "icon",
             colorFilter = ColorFilter.tint(tint)
         )
+
+        Spacer(modifier = Modifier.size(50.dp))
         Row(horizontalArrangement = Arrangement.Center) {
             Text(
                 text = arg?.cityName!!,
@@ -55,6 +61,8 @@ fun DetailsScreen(arg: City?) {
                 style = MaterialTheme.typography.body1
             )
         }
+
+        Spacer(modifier = Modifier.size(20.dp))
         Row(horizontalArrangement = Arrangement.Center) {
             Text(
                 text = arg?.weather?.get(0)?.main!!,
@@ -66,6 +74,8 @@ fun DetailsScreen(arg: City?) {
                 style = MaterialTheme.typography.body1
             )
         }
+
+        Spacer(modifier = Modifier.size(20.dp))
         Row(horizontalArrangement = Arrangement.Center) {
             Text(
                 text = arg?.temperature?.pressure.toString(),

@@ -55,7 +55,7 @@ class FavouriteWeatherWorker(private val context: Context, params: WorkerParamet
                     if (city[0].favourite) {
                         val res = getUseCase(applicationContext).invoke(city = city[0].cityName)
                         res.collect { place ->
-                            callNotification("${place.cityName} ${place.favourite} ${place.temperature.temp}")
+                            callNotification("The weather for ${place.cityName} is  ${place.weather[0].description}, temperature is ${place.temperature.temp}° ")
                         }
                     }
 
