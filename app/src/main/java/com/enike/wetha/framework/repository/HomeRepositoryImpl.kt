@@ -31,8 +31,6 @@ class HomeRepositoryImpl(
                 localDataSource.addCityWeather(res)
                 result.add(res)
             }
-
-            Log.d("NETWORK_TESTING_REPO", result.toString())
             val localData = localDataSource.getAllCitesWeather()
             emit(localData)
 
@@ -45,6 +43,22 @@ class HomeRepositoryImpl(
         try {
             val localData = localDataSource.getAllCitesWeather()
             emit(localData)
+        } catch (e: Exception) {
+            Log.d("ERROR_TESTING_REPO", e.localizedMessage.toString())
+        }
+    }
+
+    override fun searchForCity(searchQuery: String) = flow {
+        try {
+            emit(localDataSource.searchForCity(searchQuery))
+        } catch (e: Exception) {
+            Log.d("ERROR_TESTING_REPO", e.localizedMessage.toString())
+        }
+    }
+
+    override suspend fun makeFavourite(city: City) {
+        try {
+            localDataSource.makeFavourite(city)
         } catch (e: Exception) {
             Log.d("ERROR_TESTING_REPO", e.localizedMessage.toString())
         }

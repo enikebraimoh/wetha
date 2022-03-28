@@ -2,23 +2,44 @@ package com.enike.wetha.utils
 
 import android.app.NotificationManager
 import android.content.Context
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.enike.core.interactors.GetCityWeatherUseCase
-import kotlinx.coroutines.CoroutineScope
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.withContext
+
 
 class FavouriteWeatherWorker(private val context: Context, params: WorkerParameters) :
     CoroutineWorker(context, params) {
 
-    @Inject
-    lateinit var usecase: GetCityWeatherUseCase
+    @InstallIn(SingletonComponent::class)
+    @EntryPoint
+    interface LogsContentProviderEntryPoint {
+        fun usecase(): GetCityWeatherUseCase2
+        fun usecase2(): GetCitiesFromDatabaseUseCase2
+    }
 
-    val coroutines = CoroutineScope(Dispatchers.Default)
+    private fun getUseCase(appContext: Context): GetCityWeatherUseCase2 {
+        val hiltEntryPoint = EntryPointAccessors.fromApplication(
+            appContext,
+            LogsContentProviderEntryPoint::class.java
+        )
+        return hiltEntryPoint.usecase()
+    }
+
+    private fun getUseCase2(appContext: Context): GetCitiesFromDatabaseUseCase2 {
+        val hiltEntryPoint = EntryPointAccessors.fromApplication(
+            appContext,
+            LogsContentProviderEntryPoint::class.java
+        )
+        return hiltEntryPoint.usecase2()
+    }
 
     companion object {
         const val WORK_NAME = "FavouriteWeatherWorker"
@@ -26,12 +47,25 @@ class FavouriteWeatherWorker(private val context: Context, params: WorkerParamet
 
     override suspend fun doWork(): Result {
         return try {
-            val res = usecase("abuja")
-            res.onEach { place ->
-                callNotification("${place.cityName} ${place.favourite} ${place.temperature.temp}")
-            }.launchIn(coroutines)
-            return Result.success()
+            withContext(Dispatchers.IO) {
+
+                var cities = getUseCase2(applicationContext).invoke()
+
+                cities.collect { city ->
+                    if (city[0].favourite) {
+                        val res = getUseCase(applicationContext).invoke(city = city[0].cityName)
+                        res.collect { place ->
+                            callNotification("${place.cityName} ${place.favourite} ${place.temperature.temp}")
+                        }
+                    }
+
+                }
+                Result.success()
+            }
+
         } catch (e: Exception) {
+            Log.d("ERROR_TESTING_REPO", e.localizedMessage.toString())
+            callNotification(e.localizedMessage.toString())
             Result.retry()
         }
     }
