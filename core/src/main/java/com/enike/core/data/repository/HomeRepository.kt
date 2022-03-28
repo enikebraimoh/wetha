@@ -7,4 +7,6 @@ interface HomeRepository {
     fun getCityWeather(city: String): Flow<City>
     fun getAllCityWeather(cities: List<String>): Flow<List<City>>
     fun getDatabaseCityWeather(): Flow<List<City>>
+    fun searchForCity(searchQuery: String): Flow<List<City>>
+    suspend fun makeFavourite(city: City)
 }

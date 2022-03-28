@@ -7,27 +7,34 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.enike.wetha.ui.presentation.Home
-import com.enike.wetha.ui.presentation.HomeViewModel
-import com.enike.wetha.ui.theme.WethaTheme
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.enike.core.domain.City
+import com.enike.wetha.presentation.Home
+import com.enike.wetha.presentation.ui.Screens.HomeScreen
+import com.enike.wetha.presentation.ui.Screens.WeatherDetailsScreen
+import com.enike.wetha.presentation.ui.home.DetailsScreen
+import com.enike.wetha.presentation.ui.theme.WethaTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             WethaTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Mother Fucker!")
+                    App()
                 }
             }
         }
@@ -66,10 +73,42 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun Greeting(name: String) {
-    val viewModel: HomeViewModel = hiltViewModel()
-    val cities by remember { viewModel.state }
-    Home(data = cities)
+fun App() {
+
+    //nav
+    val navController = rememberNavController()
+
+    Scaffold { paddingValues ->
+        NavHost(
+            navController = navController,
+            modifier = Modifier.padding(paddingValues)
+        )
+    }
+
+}
+
+@Composable
+fun NavHost(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
+    androidx.navigation.compose.NavHost(
+        startDestination = HomeScreen.name,
+        navController = navController,
+        modifier = modifier
+    ) {
+        composable(HomeScreen.name) {
+            Home(navigate = { city ->
+                navController.currentBackStackEntry?.savedStateHandle?.set("city", city)
+                navController.navigate(WeatherDetailsScreen.name)
+            })
+        }
+        composable(WeatherDetailsScreen.name) {
+            val city = navController.previousBackStackEntry?.savedStateHandle?.get<City>("city")
+            DetailsScreen(arg = city)
+        }
+
+    }
 
 }
 
@@ -77,6 +116,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     WethaTheme {
-        Greeting("Android")
+        App()
     }
 }
