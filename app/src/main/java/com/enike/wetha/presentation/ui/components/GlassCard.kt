@@ -1,4 +1,4 @@
-package com.enike.wetha.ui.components
+package com.enike.wetha.presentation.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -9,7 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.WbCloudy
 import androidx.compose.material.icons.rounded.WbSunny
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
@@ -18,15 +18,27 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.enike.core.domain.City
+import com.enike.core.domain.Weather
 import com.enike.wetha.R
-import com.enike.wetha.ui.theme.WethaTheme
+import com.enike.wetha.presentation.ui.theme.WethaTheme
 
 @Composable
-fun GlassCard(icon: ImageVector, temperature: Double, place: String) {
+fun GlassCard(
+    icon: ImageVector,
+    temperature: Double,
+    place: String,
+    city: City,
+    clicked : (city : City) -> Unit,
+    makeFavourite: (city: City) -> Unit
+) {
+    var favourite by remember { mutableStateOf(false) }
+
     var tint = if (icon == Icons.Rounded.WbSunny) {
         Color(0xFFE9E38C)
     } else if (icon == Icons.Rounded.WbCloudy) {
@@ -43,7 +55,8 @@ fun GlassCard(icon: ImageVector, temperature: Double, place: String) {
             .height(150.dp), backgroundColor = Color(0xFFFFFF),
         border = BorderStroke(1.dp, Color(0x25FFFFFF)),
         elevation = 0.dp,
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(16.dp),
+        onClick = {clicked(city)}
     ) {
         Box(
             modifier = Modifier
@@ -87,10 +100,14 @@ fun GlassCard(icon: ImageVector, temperature: Double, place: String) {
 
             }
             Spacer(modifier = Modifier.width(20.dp))
-            Box() {
+
+            IconButton(onClick = { makeFavourite(addCity(city)) }) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_favourite),
-                    contentDescription = "favourite icon"
+                    contentDescription = "favourite icon",
+                    colorFilter = if (!city.favourite) ColorFilter.tint(Color.Gray) else ColorFilter.tint(
+                        Color.Red
+                    )
                 )
             }
 
@@ -99,12 +116,37 @@ fun GlassCard(icon: ImageVector, temperature: Double, place: String) {
     }
 }
 
+fun addCity(city: City): City {
+    val newCity = City(
+        id = city.id,
+        cityName = city.cityName,
+        weather = city.weather.map { weather ->
+            Weather(
+                weather.description,
+                weather.icon,
+                weather.id,
+                weather.main
+            )
+        },
+        temperature = com.enike.core.domain.Temperature(
+            temp = city.temperature.temp,
+            temp_min = city.temperature.temp_min,
+            temp_max = city.temperature.temp_max,
+            pressure = city.temperature.pressure,
+            humidity = city.temperature.humidity
+        ),
+        favourite = city.favourite.not()
+    )
+    return newCity
+
+}
+
 @Preview(showBackground = false)
 @Composable
 fun MyPreview() {
     WethaTheme {
         Surface(color = MaterialTheme.colors.background) {
-            GlassCard(icon = Icons.Rounded.WbSunny, temperature = 42.4, place = "Abuja")
+
         }
     }
 }

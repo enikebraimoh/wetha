@@ -1,7 +1,6 @@
-package com.enike.wetha.ui.presentation
+package com.enike.wetha.presentation.ui.home
 
 import android.app.Application
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

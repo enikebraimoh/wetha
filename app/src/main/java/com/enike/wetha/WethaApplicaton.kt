@@ -1,9 +1,8 @@
 package com.enike.wetha
 
 import android.app.Application
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
+import android.os.Build
+import androidx.work.*
 import com.enike.wetha.utils.FavouriteWeatherWorker
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
@@ -23,8 +22,20 @@ class WethaApplicaton : Application() {
 
     fun doBackgroundWork() {
         applicationScope.launch {
+
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .apply {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        setRequiresDeviceIdle(false)
+                    }
+                }.build()
+
             val repeatingRequest =
-                PeriodicWorkRequestBuilder<FavouriteWeatherWorker>(1, TimeUnit.HOURS)
+                PeriodicWorkRequestBuilder<FavouriteWeatherWorker>(
+                    1,
+                    TimeUnit.HOURS
+                ).setConstraints(constraints)
                     .build()
 
             WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
@@ -33,8 +44,6 @@ class WethaApplicaton : Application() {
                 repeatingRequest
             )
         }
-
-
     }
 
 }
