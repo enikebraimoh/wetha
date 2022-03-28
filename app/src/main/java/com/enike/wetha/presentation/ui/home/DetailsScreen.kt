@@ -52,12 +52,12 @@ fun DetailsScreen(arg: City?) {
         Spacer(modifier = Modifier.size(50.dp))
         Row(horizontalArrangement = Arrangement.Center) {
             Text(
-                text = arg?.cityName!!,
+                text = "City name -> ${arg?.cityName!!}",
                 style = MaterialTheme.typography.body1
             )
             Spacer(modifier = Modifier.size(20.dp))
             Text(
-                text = arg.weather[0].description,
+                text = "weather -> ${arg.weather[0].description} ",
                 style = MaterialTheme.typography.body1
             )
         }
@@ -65,12 +65,12 @@ fun DetailsScreen(arg: City?) {
         Spacer(modifier = Modifier.size(20.dp))
         Row(horizontalArrangement = Arrangement.Center) {
             Text(
-                text = arg?.weather?.get(0)?.main!!,
+                text = "clouds -> ${arg?.weather?.get(0)?.main!!}",
                 style = MaterialTheme.typography.body1
             )
             Spacer(modifier = Modifier.size(20.dp))
             Text(
-                text = arg.temperature.humidity.toString(),
+                text = "Humidity -> ${arg.temperature.humidity.toString()}",
                 style = MaterialTheme.typography.body1
             )
         }
@@ -78,12 +78,12 @@ fun DetailsScreen(arg: City?) {
         Spacer(modifier = Modifier.size(20.dp))
         Row(horizontalArrangement = Arrangement.Center) {
             Text(
-                text = arg?.temperature?.pressure.toString(),
+                text = "Pressure -> ${arg?.temperature?.pressure.toString()}",
                 style = MaterialTheme.typography.body1
             )
             Spacer(modifier = Modifier.size(20.dp))
             Text(
-                text = arg?.temperature?.temp.toString(),
+                text = "Temperature -> ${arg?.temperature?.temp.toString()}",
                 style = MaterialTheme.typography.body1
             )
         }
