@@ -14,7 +14,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
     val builder = NotificationCompat.Builder(
         applicationContext,
         applicationContext.getString(R.string.notification_channel_id)
-    ).setSmallIcon(R.drawable.ic_favourite)
+    ).setSmallIcon(R.drawable.clouds_wetha)
         .setContentTitle(
             applicationContext
                 .getString(R.string.app_name)
